@@ -1,0 +1,8 @@
+services:
+    app:
+        container_name: app
+        image: app
+        #environment:
+        #- "SSH_AUTH_SOCK=/tmp/ssh-IkV2EwLviFxp"
+        #volumes:
+        #- $SSH_AUTH_SOCK:/tmp/ssh-IkV2EwLviFxp
