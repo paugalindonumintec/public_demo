@@ -43,22 +43,24 @@ WORKDIR /home/appuser/app/
 # ------------------------------------------
 # Authorize SSH Host
 # ------------------------------------------
-RUN mkdir -p /root/.ssh && \
-    chmod 0700 /root/.ssh && \
-    ssh-keyscan github.com > /root/.ssh/known_hosts
+#RUN mkdir -p /root/.ssh && \
+#    chmod 0700 /root/.ssh && \
+#    ssh-keyscan github.com > /root/.ssh/known_hosts
 
 # ------------------------------------------
 # Add the keys and set permissions
 # ------------------------------------------
-COPY ./ssh/id_rsa /root/.ssh/id_rsa
-RUN chmod 600 /root/.ssh/id_rsa
+#COPY ./ssh/id_rsa /root/.ssh/id_rsa
+#RUN chmod 600 /root/.ssh/id_rsa
 #RUN eval "$(ssh-agent -s)" && echo "empty" | ssh-add /root/.ssh/id_rsa
 
 # ------------------------------------------
 # Requiere to work
 # ------------------------------------------
-
-RUN pip3 install git+ssh://git@github.com/paugalindonumintec/demo.git@${environ} -v
+#RUN echo "$SSH_AUTH_SOCK"
+RUN mkdir -p -m 0700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+#RUN --mount=type=ssh ssh -T git@github.com
+RUN --mount=type=ssh pip3 install git+ssh://git@github.com/paugalindonumintec/demo.git@${environ} -v
 
 # ------------------------------------------
 # Copy our source to the image
